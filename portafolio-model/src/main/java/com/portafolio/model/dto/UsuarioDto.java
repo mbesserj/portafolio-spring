@@ -1,0 +1,21 @@
+package com.portafolio.model.dto;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data // Genera getters, setters, toString, equals y hashCode
+@NoArgsConstructor // Genera constructor sin argumentos
+public class UsuarioDto {
+
+    private Long id;
+    private String nombre;
+    private String email;
+    private String password; // No queremos exponer esto
+
+    public UsuarioDto(Long id, String nombre, String email, String password) {
+        this.id = id;
+        this.nombre = nombre;
+        this.email = email;
+        this.password = password;
+    }
+}
