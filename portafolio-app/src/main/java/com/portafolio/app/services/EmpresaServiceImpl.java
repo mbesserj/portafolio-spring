@@ -1,6 +1,6 @@
 package com.portafolio.app.services;
 
-import com.portafolio.model.dto.EmpresaDTO;
+import com.portafolio.model.dto.EmpresaDto;
 import com.portafolio.model.entities.EmpresaEntity;
 import com.portafolio.model.mappers.EmpresaMapper;
 import com.portafolio.model.repositories.EmpresaRepository;
@@ -18,16 +18,16 @@ public class EmpresaServiceImpl implements EmpresaService {
     private EmpresaMapper empresaMapper;
 
     @Override
-    public List<EmpresaDTO> findAll() {
+    public List<EmpresaDto> findAll() {
         return empresaRepository.findAll().stream()
-                .map(empresaMapper::toDto)
+                .map(empresaMapper::toDto) // Cambiar de toDTO a toDto
                 .collect(Collectors.toList());
     }
 
     @Override
-    public EmpresaDTO save(EmpresaDTO empresaDto) {
+    public EmpresaDto save(EmpresaDto empresaDto) {
         EmpresaEntity entity = empresaMapper.toEntity(empresaDto);
         EmpresaEntity savedEntity = empresaRepository.save(entity);
-        return empresaMapper.toDto(savedEntity);
+        return empresaMapper.toDto(savedEntity);  // Cambiar de toDTO a toDto
     }
 }
