@@ -1,7 +1,7 @@
 package com.portafolio.app.controllers;
 
 import com.portafolio.app.services.EmpresaService;
-import com.portafolio.model.dto.EmpresaDTO;
+import com.portafolio.model.dto.EmpresaDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,12 +15,12 @@ public class EmpresaController {
     private EmpresaService empresaService;
 
     @GetMapping
-    public ResponseEntity<List<EmpresaDTO>> getAllEmpresas() {
+    public ResponseEntity<List<EmpresaDto>> getAllEmpresas() {
         return ResponseEntity.ok(empresaService.findAll());
     }
 
     @PostMapping
-    public ResponseEntity<Object> createEmpresa(@RequestBody EmpresaDTO empresaDTO) {
+    public ResponseEntity<Object> createEmpresa(@RequestBody EmpresaDto empresaDTO) {
         return ResponseEntity.ok(empresaService.save(empresaDTO));
     }
 }
