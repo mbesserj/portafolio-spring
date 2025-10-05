@@ -19,8 +19,8 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder 
-@EqualsAndHashCode(callSuper = true, exclude = {"empresa", "instrumento", "custodio", "tipoMovimiento"}) 
+@SuperBuilder
+@EqualsAndHashCode(callSuper = true, exclude = {"empresa", "instrumento", "custodio", "tipoMovimiento"})
 public class TransaccionEntity extends BaseEntity implements Serializable {
 
     @Column(name = "fecha_transaccion", nullable = false)
@@ -74,8 +74,7 @@ public class TransaccionEntity extends BaseEntity implements Serializable {
     private boolean ignorarEnCosteo = false;
 
     // --- RELACIONES MEJORADAS ---
-    
-    @ManyToOne(fetch = FetchType.LAZY) 
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "empresa_id", nullable = false)
     private EmpresaEntity empresa;
 
@@ -109,5 +108,9 @@ public class TransaccionEntity extends BaseEntity implements Serializable {
                 + this.getCuenta() + "|"
                 + this.getCustodio().getId() + "|"
                 + this.getInstrumento().getId();
+    }
+
+    public Boolean getParaRevision() {
+        return this.paraRevision;
     }
 }
