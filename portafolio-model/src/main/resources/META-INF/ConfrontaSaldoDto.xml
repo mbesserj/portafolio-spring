@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd"
+                 version="2.2">
+
+    <sql-result-set-mapping name="ConfrontaSaldoMapping">
+        <constructor-result target-class="com.model.dto.ConfrontaSaldoDto">
+            <column name="empresaNombre" class="java.lang.String"/>
+            <column name="custodioNombre" class="java.lang.String"/>
+            <column name="instrumentoNemo" class="java.lang.String"/>
+            <column name="cuenta" class="java.lang.String"/>
+            <column name="ultimaFechaKardex" class="java.time.LocalDate"/>
+            <column name="cantidadKardex" class="java.math.BigDecimal"/>
+            <column name="valorKardex" class="java.math.BigDecimal"/>
+            <column name="ultimaFechaSaldos" class="java.time.LocalDate"/>
+            <column name="cantidadMercado" class="java.math.BigDecimal"/>
+            <column name="valorMercado" class="java.math.BigDecimal"/>
+            <column name="diferenciaCantidad" class="java.math.BigDecimal"/>
+        </constructor-result>
+    </sql-result-set-mapping>
+
+    <named-native-query name="ConfrontaSaldo.obtenerDiferencias" result-set-mapping="ConfrontaSaldoMapping">
+        <query>
+            <![CDATA[
+                SELECT
+                    e.razon_social as empresaNombre,
+                    c.nombre_custodio as custodioNombre,
+                    i.nemo as instrumentoNemo,
+                    k.cuenta as cuenta,
+                    k.fecha_tran as ultimaFechaKardex,
+                    k.saldo_cantidad as cantidadKardex,
+                    k.saldo_valor as valorKardex,
+                    s.fecha as ultimaFechaSaldos,
+                    s.cantidad as cantidadMercado,
+                    s.monto_clp as valorMercado,
+                    (k.saldo_cantidad - s.cantidad) as diferenciaCantidad
+                FROM
+                    kardex_view k
+                JOIN
+                    saldos s ON k.empresa_id = s.empresa_id AND k.custodio_id = s.custodio_id AND k.nemo_id = s.instrumento_id
+                JOIN
+                    empresas e ON k.empresa_id = e.id
+                JOIN
+                    custodios c ON k.custodio_id = c.id
+                JOIN
+                    instrumentos i ON k.nemo_id = i.id
+                WHERE
+                    ABS(k.saldo_cantidad - s.cantidad) > 0.0001
+            ]]>
+        </query>
+    </named-native-query>
+</entity-mappings>
