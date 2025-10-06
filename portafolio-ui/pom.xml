@@ -1,52 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    
     <parent>
-        <groupId>com.app</groupId>
-        <artifactId>portafolio</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <groupId>com.portafolio</groupId>
+        <artifactId>portafolio-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>portafolio-ui</artifactId>
-    <packaging>jar</packaging>
     <name>portafolio-ui</name>
 
     <properties>
-        <main.class>com.ui.App.AppLauncher</main.class>
+        <main.class>com.portafolio.ui.App.AppLauncher</main.class>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>com.app</groupId>
-            <artifactId>portafolio-service</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>com.app</groupId>
-            <artifactId>portafolio-model</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>com.portafolio</groupId>
+            <artifactId>portafolio-service</artifactId>
+            <version>${project.version}</version>
         </dependency>
         
         <dependency>
+            <groupId>com.portafolio</groupId>
+            <artifactId>portafolio-model</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.portafolio</groupId>
+            <artifactId>portafolio-persistence</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+                
+        <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
+            <version>25</version> 
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
+            <version>25</version>
         </dependency>
 
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish</groupId>
-            <artifactId>jakarta.el</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -56,29 +59,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <archive>
-                        <manifest>
-                            <mainClass>${main.class}</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
